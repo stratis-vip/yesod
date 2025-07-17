@@ -3,12 +3,15 @@ FROM haskell:9.4 as dependencies
 
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
+# Update package lists and install system dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
     libgmp-dev \
     zlib1g-dev \
-    pkg-config \
-    && rm -rf /var/lib/apt/lists/*
+    libtinfo-dev \
+    && apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Copy cabal configuration
 COPY *.cabal cabal.project* ./
