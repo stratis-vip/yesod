@@ -1,0 +1,32 @@
+# render.yaml - Place this in your project root
+services:
+  - type: web
+    name: my-yesod-spa
+    env: haskell
+    region: oregon # or your preferred region
+    plan: free # or starter/standard
+    buildCommand: |
+      cabal update
+      cabal configure
+      cabal build
+    startCommand: cabal run -- --port=$PORT --host=0.0.0.0
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: YESOD_ENV
+        value: production
+
+---
+# Alternative: Manual configuration (if render.yaml doesn't work)
+# Use these settings in the Render dashboard:
+
+# Build Command:
+# cabal update && cabal configure && cabal build
+
+# Start Command:
+# cabal run -- --port=$PORT --host=0.0.0.0
+
+# Environment Variables:
+# PORT: 10000
+# YESOD_ENV: production
