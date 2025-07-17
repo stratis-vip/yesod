@@ -7,8 +7,8 @@ services:
     plan: free # or starter/standard
     buildCommand: |
       cabal update
-      cabal configure
-      cabal build
+      cabal configure --allow-newer
+      cabal build --allow-newer
     startCommand: cabal run -- --port=$PORT --host=0.0.0.0
     healthCheckPath: /
     envVars:
@@ -22,7 +22,7 @@ services:
 # Use these settings in the Render dashboard:
 
 # Build Command:
-# cabal update && cabal configure && cabal build
+# cabal update && cabal configure --allow-newer && cabal build --allow-newer
 
 # Start Command:
 # cabal run -- --port=$PORT --host=0.0.0.0
